@@ -1,4 +1,5 @@
-FROM sirius1242/bam:alpine3.4 AS builder
+#FROM sirius1242/bam:alpine3.4 AS builder
+FROM 822f9bae86a5 AS builder
 WORKDIR /teeworlds-fng2
 #RUN git clone --depth=1 --single-branch --branch 0.6.5-release https://github.com/teeworlds/teeworlds.git
 COPY . .
