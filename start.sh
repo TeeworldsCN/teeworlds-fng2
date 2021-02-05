@@ -1,6 +1,7 @@
 #!/bin/bash
 while :;
 do
-./fng2_srv -f fng.cfg
-sleep 3;
+	cp fng2.log "logs/fng2-$(date +"%d-%m-%y-%r").log"
+	./fng2_srv -f fng.cfg
+	sleep 1;
 done
