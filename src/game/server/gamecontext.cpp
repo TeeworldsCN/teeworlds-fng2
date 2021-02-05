@@ -309,7 +309,15 @@ void CGameContext::SendChat(int ChatterClientID, int Team, const char *pText, in
 			str_format(aBuf, sizeof(aBuf), "%d:%d:%s: %s", ChatterClientID, Team, Server()->ClientName(ChatterClientID), pText);
 		else
 			str_format(aBuf, sizeof(aBuf), "*** %s", pText);
-		Console()->Print(IConsole::OUTPUT_LEVEL_ADDINFO, Team!=CHAT_ALL?"teamchat":"chat", aBuf);
+
+		// disable spectators talking to players (until ending of one round)
+		if( 0 <= ChatterClientID && ChatterClientID < MAX_CLIENTS && !IsClientPlayer(ChatterClientID))
+		{
+			Console()->Print(IConsole::OUTPUT_LEVEL_ADDINFO, "forcedteamchat", aBuf);
+			Team = TEAM_SPECTATORS;
+		}
+		else
+			Console()->Print(IConsole::OUTPUT_LEVEL_ADDINFO, Team!=CHAT_ALL?"teamchat":"chat", aBuf);
 	}
 	
 	if(Team == CHAT_ALL)
